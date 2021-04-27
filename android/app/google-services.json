@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "431823641997",
+    "project_id": "bridge-e252d",
+    "storage_bucket": "bridge-e252d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:431823641997:android:187169f2785fd17918b1c4",
+        "android_client_info": {
+          "package_name": "com.edtech.bridge"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "431823641997-oicu2qs4d7gpjj45hse9uki5v5uin43d.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAzEi9kkhmYGqd8I02VzUEZIIxRCJ-Ys54"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "431823641997-oicu2qs4d7gpjj45hse9uki5v5uin43d.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

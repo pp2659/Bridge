@@ -1,9 +1,12 @@
+import 'package:bridge/features/login/screen/Welcome.dart';
 import 'package:bridge/features/login/widgets/loginWidgets.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 import '../../../constants.dart';
+import 'Registration.dart';
 
 class Login extends StatefulWidget {
   @override
@@ -13,6 +16,7 @@ class Login extends StatefulWidget {
 class _LoginState extends State<Login> {
   String email;
   String password;
+  final _auth = FirebaseAuth.instance;
   @override
   Widget build(BuildContext context) {
     var height =MediaQuery.of(context).size.height;
@@ -68,6 +72,9 @@ class _LoginState extends State<Login> {
                                         Container(
                                           height: height*0.06,
                                           child: TextField(
+                                            onChanged: (value){
+                                              email = value;
+                                            },
                                             textInputAction: TextInputAction.next,
                                             onEditingComplete: () => node.nextFocus(), decoration: border(height)
                                           ),
@@ -82,6 +89,9 @@ class _LoginState extends State<Login> {
                                         Container(
                                           height: height*0.06,
                                           child: TextField(
+                                            onChanged: (value){
+                                              password = value;
+                                            },
                                             textInputAction: TextInputAction.done,
                                             onSubmitted: (_) => node.unfocus(),
                                               obscureText: true,
@@ -100,8 +110,18 @@ class _LoginState extends State<Login> {
                                         ),
 
                                         InkWell(
-                                          onTap: (){
+                                          onTap: () async {
+                                              print("pressed");
+                                              try {
+                                                final newUser = await _auth.signInWithEmailAndPassword(email: email, password: password);
+                                                if (newUser != null) {
+                                                  Navigator.push(context, MaterialPageRoute(builder: (context) => Welcome()));
+                                              }}
+                                              catch (e) {
+                                                print(e);
+                                              }
                                             },
+
                                           child: Center(
                                             child: ClipRRect(
                                               borderRadius: BorderRadius.all(
@@ -125,7 +145,11 @@ class _LoginState extends State<Login> {
                                           mainAxisAlignment: MainAxisAlignment.center,
                                           children: [
                                             textWidget("Don't have an account?", 0.03, colorwhite,width),
-                                            textWidget("Signup", 0.03, colorblue,width),
+                                            InkWell(
+                                                onTap: (){
+                                                  Navigator.push(context, MaterialPageRoute(builder: (context) => Registration()));
+                                                },
+                                                child: textWidget("Signup", 0.03, colorblue,width)),
                                           ],
                                         )
                                       ],
