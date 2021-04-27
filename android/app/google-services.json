@@ -7,12 +7,20 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:431823641997:android:187169f2785fd17918b1c4",
+        "mobilesdk_app_id": "1:431823641997:android:97417db8234231da18b1c4",
         "android_client_info": {
           "package_name": "com.edtech.bridge"
         }
       },
       "oauth_client": [
+        {
+          "client_id": "431823641997-lmo64gplehqsaqle19602178breise2a.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.edtech.bridge",
+            "certificate_hash": "270e354a4d506c900ba5a266a9c95297169ea927"
+          }
+        },
         {
           "client_id": "431823641997-oicu2qs4d7gpjj45hse9uki5v5uin43d.apps.googleusercontent.com",
           "client_type": 3

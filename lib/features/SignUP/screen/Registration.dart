@@ -1,23 +1,24 @@
 import 'package:bridge/features/SignUP/provider/signupProvider.dart';
+import 'package:bridge/features/login/screen/Login.dart';
 import 'package:bridge/features/login/screen/Welcome.dart';
-import 'package:bridge/features/login/widgets/loginWidgets.dart';
+import 'package:bridge/features/SignUP/widgets/signupWidget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:provider/provider.dart';
-
 import '../../../constants.dart';
-import '../../SignUP/screen/Registration.dart';
 
-class Login extends StatefulWidget {
+class Registration extends StatefulWidget {
   @override
-  _LoginState createState() => _LoginState();
+  _RegistrationState createState() => _RegistrationState();
 }
 
-class _LoginState extends State<Login> {
+class _RegistrationState extends State<Registration> {
   String email;
   String password;
+  String confirmPassword;
+  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   final _auth = FirebaseAuth.instance;
   @override
   Widget build(BuildContext context) {
@@ -25,6 +26,7 @@ class _LoginState extends State<Login> {
     var width = MediaQuery.of(context).size.width;
     final node = FocusScope.of(context);
     return Scaffold(
+        key: _scaffoldKey,
         backgroundColor: colorblue,
         body: SafeArea(
           child: Column(
@@ -34,7 +36,7 @@ class _LoginState extends State<Login> {
                 child: SvgPicture.asset('assets/login.svg'),
               ),
               Expanded(
-                flex: 7,
+                flex: 8,
                 child: Stack(
                   children: <Widget>[
                     Padding(
@@ -54,7 +56,7 @@ class _LoginState extends State<Login> {
                             children: [
                               Expanded(flex: 1, child: Container()),
                               Expanded(
-                                flex: 6,
+                                flex: 7,
                                 child: Padding(
                                   //padding: const EdgeInsets.all(width/10), //TODO
                                   padding: const EdgeInsets.only(
@@ -65,7 +67,7 @@ class _LoginState extends State<Login> {
                                           CrossAxisAlignment.start,
                                       children: [
                                         textWidget(
-                                            'Login using Email and Password',
+                                            'Signup using Email and Password',
                                             0.045,
                                             colorwhite,
                                             width),
@@ -105,43 +107,59 @@ class _LoginState extends State<Login> {
                                               },
                                               textInputAction:
                                                   TextInputAction.done,
-                                              onSubmitted: (_) =>
-                                                  node.unfocus(),
+                                              onEditingComplete: () =>
+                                                  node.nextFocus(),
                                               obscureText: true,
                                               decoration: border(height)),
                                         ),
                                         SizedBox(
                                           height: height * 0.015,
                                         ),
-                                        Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.end,
-                                          children: [
-                                            textWidget('Forgot password?', 0.03,
-                                                colorblue, width),
-                                          ],
+                                        textWidget('Confirm Password', 0.035,
+                                            colorwhite, width),
+                                        SizedBox(
+                                          height: height * 0.015,
+                                        ),
+                                        Container(
+                                          height: height * 0.06,
+                                          child: TextField(
+                                              onChanged: (value) {
+                                                confirmPassword = value;
+                                              },
+                                              textInputAction:
+                                                  TextInputAction.done,
+                                              onSubmitted: (_) =>
+                                                  node.unfocus(),
+                                              obscureText: true,
+                                              decoration: border(height)),
                                         ),
                                         SizedBox(
-                                          height: height * 0.03,
+                                          height: height * 0.0,
                                         ),
                                         InkWell(
                                           onTap: () async {
-                                            String userData;
+                                            String newUser;
                                             print("pressed");
-                
-                                              userData =
-                                                  await Provider.of<Auth>(
-                                                          context,
-                                                          listen: false)
-                                                      .signIn(email: email,password: password);
-                                              if (userData =="Signed in!") {
+                                            if (password == confirmPassword) {
+                                              newUser = await Provider.of<Auth>(
+                                                      context,
+                                                      listen: false)
+                                                  .signUp(email, password);
+                                              if (newUser == "Signed up!") {
                                                 Navigator.push(
                                                     context,
                                                     MaterialPageRoute(
                                                         builder: (context) =>
                                                             Welcome()));
                                               }
-                                           
+                                            } else {
+                                              print(newUser);
+                                              _scaffoldKey.currentState
+                                                  .showSnackBar(new SnackBar(
+                                                content:
+                                                    new Text(newUser),
+                                              ));
+                                            }
                                           },
                                           child: Center(
                                             child: ClipRRect(
@@ -153,8 +171,8 @@ class _LoginState extends State<Login> {
                                                 width: width * 0.3,
                                                 color: colorred,
                                                 child: Center(
-                                                  child: textWidget('LOGIN',
-                                                      0.03, colorwhite, width),
+                                                  child: textWidget('Signup',
+                                                      0.04, colorwhite, width),
                                                 ),
                                               ),
                                             ),
@@ -167,18 +185,21 @@ class _LoginState extends State<Login> {
                                           mainAxisAlignment:
                                               MainAxisAlignment.center,
                                           children: [
-                                            textWidget("Don't have an account?",
-                                                0.03, colorwhite, width),
+                                            textWidget(
+                                                "Already have an account?",
+                                                0.03,
+                                                colorwhite,
+                                                width),
                                             InkWell(
                                                 onTap: () {
                                                   Navigator.push(
                                                       context,
                                                       MaterialPageRoute(
                                                           builder: (context) =>
-                                                              Registration()));
+                                                              Login()));
                                                 },
-                                                child: textWidget("Signup",
-                                                    0.03, colorblue, width)),
+                                                child: textWidget("Login", 0.03,
+                                                    colorblue, width)),
                                           ],
                                         )
                                       ],
