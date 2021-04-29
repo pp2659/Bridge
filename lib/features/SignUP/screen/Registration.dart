@@ -1,6 +1,7 @@
 import 'package:bridge/features/SignUP/provider/signupProvider.dart';
+import 'package:bridge/features/Welcome/Screen/welcome.dart';
 import 'package:bridge/features/login/screen/Login.dart';
-import 'package:bridge/features/login/screen/Welcome.dart';
+
 import 'package:bridge/features/SignUP/widgets/signupWidget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -77,7 +78,7 @@ class _RegistrationState extends State<Registration> {
                                         textWidget(
                                             'Email', 0.035, colorwhite, width),
                                         SizedBox(
-                                          height: height * 0.015,
+                                          height: height * 0.005,
                                         ),
                                         Container(
                                           height: height * 0.06,
@@ -97,7 +98,7 @@ class _RegistrationState extends State<Registration> {
                                         textWidget('Password', 0.035,
                                             colorwhite, width),
                                         SizedBox(
-                                          height: height * 0.015,
+                                          height: height * 0.005,
                                         ),
                                         Container(
                                           height: height * 0.06,
@@ -118,7 +119,7 @@ class _RegistrationState extends State<Registration> {
                                         textWidget('Confirm Password', 0.035,
                                             colorwhite, width),
                                         SizedBox(
-                                          height: height * 0.015,
+                                          height: height * 0.005,
                                         ),
                                         Container(
                                           height: height * 0.06,
@@ -134,7 +135,7 @@ class _RegistrationState extends State<Registration> {
                                               decoration: border(height)),
                                         ),
                                         SizedBox(
-                                          height: height * 0.0,
+                                          height: height * 0.02,
                                         ),
                                         InkWell(
                                           onTap: () async {
@@ -161,6 +162,7 @@ class _RegistrationState extends State<Registration> {
                                               ));
                                             }
                                           },
+
                                           child: Center(
                                             child: ClipRRect(
                                               borderRadius: BorderRadius.all(

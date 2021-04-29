@@ -1,5 +1,6 @@
 import 'package:bridge/features/SignUP/provider/signupProvider.dart';
-import 'package:bridge/features/login/screen/Welcome.dart';
+import 'package:bridge/features/Welcome/Screen/welcome.dart';
+
 import 'package:bridge/features/login/widgets/loginWidgets.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
