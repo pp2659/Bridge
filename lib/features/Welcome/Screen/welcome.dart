@@ -1,7 +1,14 @@
 import 'package:bridge/constants.dart';
 import 'package:bridge/features/Welcome/Widget/welcomeWidget.dart';
+import 'package:bridge/features/classcode/Screen/ClassCode.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+
+enum UserSelected{
+  student,
+  parent,
+  teacher,
+}
 
 
 class Welcome extends StatefulWidget {
@@ -14,6 +21,7 @@ class _WelcomeState extends State<Welcome> {
   Widget build(BuildContext context) {
     var height = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
+    UserSelected selectedUser;
     return Scaffold(
       backgroundColor: colorblue,
       body: SafeArea(
@@ -41,9 +49,23 @@ class _WelcomeState extends State<Welcome> {
                     SizedBox(
                       height: height*0.02,
                     ),
-                    InkWell(
-                        onTap: (){},
-                        child: Button("Student", height, width, colorblack)),
+                    Expanded(
+                      child: InkWell(
+                        child: GestureDetector
+                          (
+                            onTap: (){
+                              print('student pressed');
+                              setState(() {
+                                selectedUser = UserSelected.student;
+                              });
+                              },
+                            child: Button("Student", height, width,
+                              selectedUser == UserSelected.student ? colorred : colorblack,
+                            )),
+                      ),
+
+
+                    ),
                     SizedBox(
                       height: height*0.02,
                     ),
@@ -70,7 +92,13 @@ class _WelcomeState extends State<Welcome> {
                 child: Container(
                   color: colorblack,
                   child: InkWell(
-                      onTap: (){},
+                      onTap: (){
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                   ClassCode ()));
+                      },
                       child: Button("Get Started", height, width, colorred)),
                 )),
           ],

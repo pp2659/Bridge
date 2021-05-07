@@ -1,5 +1,9 @@
 import 'package:bridge/features/SignUP/provider/signupProvider.dart';
 import 'package:bridge/features/SignUP/screen/Registration.dart';
+import 'package:bridge/features/classcode/Screen/ClassCode.dart';
+import 'package:bridge/features/dashboard/Screen/Dashboard.dart';
+import 'package:bridge/features/subjectprofile/Screen/SubjectProfile.dart';
+import 'package:bridge/features/timetable/Screen/Timetable.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -37,10 +41,25 @@ class MyApp extends StatelessWidget {
 
         theme: ThemeData(
           primarySwatch: Colors.blue,
-
           visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
-         home:Authenticate()
+          routes: {
+            '/login': (context) => Login(),
+            '/registration': (context) => Registration(),
+            '/welcome': (context) => Welcome(),
+            '/classCode': (context) => ClassCode(),
+            '/dashboard': (context) => Dashboard(),
+            '/timetable': (context) => Timetable(),
+            '/subjectProfile': (context) => SubjectProfile(),
+         //   '/studentProfile': (context) => Timetable(),
+         //   '/attendence': (context) =>SocialMedia(),
+         //   '/result': (context) =>SocialMedia(),
+         //   '/calender': (context) =>SocialMedia(),
+         //   '/announcement': (context) =>SocialMedia(),
+
+          },
+          home: Authenticate(),
+
         // home:Registration()
         
       ),
